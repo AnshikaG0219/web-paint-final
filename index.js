@@ -1,7 +1,11 @@
 var canvas = document.getElementById("draw");
 var ctx = canvas.getContext("2d");
-let color = "#3f48cc";
-let brushthickness = 2;
+let color = "#000";
+let brushthickness = 7;
+
+//set current color
+document.querySelector(".color-btn div").style.backgroundColor = color;
+
 resize();
 
 function sizeList() {
@@ -10,24 +14,29 @@ function sizeList() {
 }
 
 function brushSize() {
-  var brushSet = document.getElementsByClassName('size');
-  Array.prototype.forEach.call(brushSet, function(element) {
-    element.addEventListener('click', function(){
-      brushthickness = element.getAttribute('style').substr(11, 2);
+  var brushSet = document.getElementsByClassName("size");
+  Array.prototype.forEach.call(brushSet, function (element) {
+    element.addEventListener("click", function () {
+      brushthickness = element.getAttribute("style").substr(11, 2);
       console.log(brushthickness);
-    })
-  })
-}
-
-function setColor(){
-  var palette = document.getElementsByClassName('color');
-
-  Array.prototype.forEach.call(palette, function(element) {
-    element.addEventListener('click', function() {
-      color = element.getAttribute('style').split('--set-color:')[1];
     });
   });
-  
+}
+
+function setColor() {
+  var palette = document.getElementsByClassName("color");
+  Array.prototype.forEach.call(palette, function (element) {
+    element.addEventListener("click", function () {
+      color = element.getAttribute("style").split("--set-color:")[1];
+      document.querySelector(".color-btn div").style.backgroundColor = color;
+    });
+  });
+}
+
+function fillColor() {
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
 }
 
 // resize canvas when window is resized
@@ -49,15 +58,13 @@ function draw(e) {
   if (e.buttons !== 1) return; // if mouse is not clicked, do not go further
 
   ctx.beginPath(); // begin the drawing path
-
   ctx.lineWidth = brushthickness; // width of line
   ctx.lineCap = "round"; // rounded end cap
   ctx.strokeStyle = color; // hex color of line
-
   ctx.moveTo(pos.x, pos.y - 70); // from position
   setPosition(e);
   ctx.lineTo(pos.x, pos.y - 70); // to position
-
+  ctx.closePath();
   ctx.stroke(); // draw it!
 }
 
@@ -70,3 +77,4 @@ document.addEventListener("mousedown", setPosition);
 document.addEventListener("mouseenter", setPosition);
 document.querySelector(".size-btn").addEventListener("click", sizeList);
 setColor();
+document.querySelector(".fill-btn").addEventListener("click", fillColor);
