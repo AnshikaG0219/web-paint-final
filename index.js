@@ -23,12 +23,16 @@ function brushSize() {
   });
 }
 
+function setActiveColor(){
+  document.querySelector(".color-btn div").style.backgroundColor = color;
+}
+
 function setColor() {
   var palette = document.getElementsByClassName("color");
   Array.prototype.forEach.call(palette, function (element) {
     element.addEventListener("click", function () {
       color = element.getAttribute("style").split("--set-color:")[1];
-      document.querySelector(".color-btn div").style.backgroundColor = color;
+      setActiveColor();
     });
   });
 }
@@ -37,6 +41,11 @@ function fillColor() {
   ctx.closePath();
   ctx.fillStyle = color;
   ctx.fill();
+}
+
+function colorPick(){
+  color = document.getElementById("color-picker").value;
+  setActiveColor();
 }
 
 // resize canvas when window is resized
@@ -76,5 +85,5 @@ document.addEventListener("mousemove", draw);
 document.addEventListener("mousedown", setPosition);
 document.addEventListener("mouseenter", setPosition);
 document.querySelector(".size-btn").addEventListener("click", sizeList);
+document.getElementById("color-picker").addEventListener("change", colorPick);
 setColor();
-document.querySelector(".fill-btn").addEventListener("click", fillColor);

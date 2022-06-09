@@ -54,6 +54,7 @@ header{
 .color-btn{
     width: 50px;
     padding: 5px 5px;
+    position: relative;
 }
 .color-btn div{
     width: 100%;
@@ -103,4 +104,10 @@ header{
 }
 .color_box span{
     box-sizing: border-box;
+}
+input[type=color]{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
 }
