@@ -55,7 +55,7 @@ function colorPick(){
 // resize canvas when window is resized
 function resize() {
   ctx.canvas.width = window.innerWidth - 20;
-  ctx.canvas.height = window.innerHeight - offsetY;
+  ctx.canvas.height = window.innerHeight;
 }
 
 // initialize position as 0,0
@@ -63,6 +63,7 @@ var pos = { x: 0, y: 0 };
 
 // new position from mouse events
 function setPosition(e) {
+  console.log(e);
   pos.x = e.clientX - offsetX;
   pos.y = e.clientY - offsetY;
 }
