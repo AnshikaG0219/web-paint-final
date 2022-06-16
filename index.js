@@ -4,7 +4,7 @@ let color = "#000";
 let offsetX = canvas.offsetLeft;
 let offsetY = canvas.offsetTop;
 let brushthickness = 7;
-const erase = () => ctx.globalCompositeOperation = 'destination-out'
+const erase = () => (ctx.globalCompositeOperation = "destination-out");
 //set current color
 document.querySelector(".color-btn div").style.backgroundColor = color;
 
@@ -14,6 +14,10 @@ function sizeList() {
   document.querySelector(".size-list").classList.toggle("show-list");
   brushSize();
 }
+
+//*************************************************************************************************
+//*************************************** SET BRUSH SIZE ******************************************
+//*************************************************************************************************
 
 function brushSize() {
   var brushSet = document.getElementsByClassName("size");
@@ -25,11 +29,19 @@ function brushSize() {
   });
 }
 
-function setActiveColor(){
+//*************************************************************************************************
+//**************************************** SET COLOR TO PALETTE ***********************************
+//*************************************************************************************************
+
+function setActiveColor() {
   document.querySelector(".color-btn div").style.backgroundColor = color;
-  ctx.strokeStyle = color
-  ctx.globalCompositeOperation = 'source-over'
+  ctx.strokeStyle = color;
+  ctx.globalCompositeOperation = "source-over";
 }
+
+//*************************************************************************************************
+//**************************************** SET COLOR TO BRUSH *************************************
+//*************************************************************************************************
 
 function setColor() {
   var palette = document.getElementsByClassName("color");
@@ -47,7 +59,7 @@ function fillColor() {
   ctx.fill();
 }
 
-function colorPick(){
+function colorPick() {
   color = document.getElementById("color-picker").value;
   setActiveColor();
 }
@@ -63,9 +75,8 @@ var pos = { x: 0, y: 0 };
 
 // new position from mouse events
 function setPosition(e) {
-  console.log(e);
-  pos.x = e.clientX - offsetX;
-  pos.y = e.clientY - offsetY;
+  pos.x = parseInt(e.clientX - offsetX);
+  pos.y = parseInt(e.clientY - offsetY);
 }
 
 function draw(e) {
@@ -82,18 +93,13 @@ function draw(e) {
   ctx.stroke(); // draw it!
 }
 
-function drawCircle(e){
-  if(e.buttons !== 1) return;
-  let centerX = pos.x;
-  let centerY = pos.y;
-  let radius = 50;
-  ctx.beginPath();
-  ctx.moveTo(pos.x, pos.y); // from position
-  setPosition(e);
-  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-  ctx.lineWidth = brushthickness;
-  ctx.strokeStyle = color;
-  ctx.stroke();
+
+function onSave() {
+  const link = document.createElement('a');
+  link.download = 'sketch.png';
+  link.href = canvas.toDataURL();
+  link.click();
+  link.delete;
 }
 
 // add window event listener to trigger when window is resized
@@ -108,7 +114,6 @@ document.addEventListener("touchend", setPosition);
 document.addEventListener("touchstart", setPosition);
 document.getElementById("color-picker").addEventListener("change", colorPick);
 setColor();
-
 
 // document.addEventListener("touchstart", e => {console.log("start");});
 // document.addEventListener("touchmove", e => {console.log("move");});
