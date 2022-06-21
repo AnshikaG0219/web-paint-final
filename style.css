@@ -9,7 +9,6 @@ body{
     box-sizing: border-box;
     font-family: var(--font-main);
     color: rgb(19, 19, 88);
-    /* cursor: url("https://cdn-icons.flaticon.com/png/512/2280/premium/2280532.png?token=exp=1654776356~hmac=c154498460be58cc5df12f7711b1044a"), auto; */
 }
 header{
     width: 90%;
@@ -42,7 +41,6 @@ header{
 .canvas-container{
     height: 90vh;
     cursor: url(./pencil.png), auto;
-    /* background-color: #9ab3d3; */
 }
 
 .btn{

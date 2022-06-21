@@ -53,22 +53,27 @@ function setColor() {
   });
 }
 
-function fillColor() {
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill();
-}
+//*************************************************************************************************
+//****************************************** COLOR PICKER *****************************************
+//*************************************************************************************************
 
 function colorPick() {
   color = document.getElementById("color-picker").value;
   setActiveColor();
 }
 
-// resize canvas when window is resized
+//*************************************************************************************************
+//******************************************* RESIZE CANVAS ***************************************
+//*************************************************************************************************
+
 function resize() {
   ctx.canvas.width = window.innerWidth - 20;
   ctx.canvas.height = window.innerHeight;
 }
+
+//*************************************************************************************************
+//**************************************** SET CURSOR POSITION *************************************
+//*************************************************************************************************
 
 // initialize position as 0,0
 var pos = { x: 0, y: 0 };
@@ -78,6 +83,10 @@ function setPosition(e) {
   pos.x = parseInt(e.clientX - offsetX);
   pos.y = parseInt(e.clientY - offsetY);
 }
+
+//*************************************************************************************************
+//********************************************** DRAW *********************************************
+//*************************************************************************************************
 
 function draw(e) {
   if (e.buttons !== 1) return; // if mouse is not clicked, do not go further
@@ -93,6 +102,9 @@ function draw(e) {
   ctx.stroke(); // draw it!
 }
 
+//*************************************************************************************************
+//************************************** DOWNLOAD CANVAS ******************************************
+//*************************************************************************************************
 
 function onSave() {
   const link = document.createElement('a');
@@ -101,6 +113,10 @@ function onSave() {
   link.click();
   link.delete;
 }
+
+//*************************************************************************************************
+//***************************************** EVENT LISTENERS ***************************************
+//*************************************************************************************************
 
 // add window event listener to trigger when window is resized
 window.addEventListener("resize", resize);
@@ -114,7 +130,3 @@ document.addEventListener("touchend", setPosition);
 document.addEventListener("touchstart", setPosition);
 document.getElementById("color-picker").addEventListener("change", colorPick);
 setColor();
-
-// document.addEventListener("touchstart", e => {console.log("start");});
-// document.addEventListener("touchmove", e => {console.log("move");});
-// document.addEventListener("touchend", e => {console.log("end");});
