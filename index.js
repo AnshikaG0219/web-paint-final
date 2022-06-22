@@ -98,7 +98,7 @@ function draw(e) {
   ctx.moveTo(pos.x, pos.y); // from position
   setPosition(e);
   ctx.lineTo(pos.x, pos.y); // to position
-  // ctx.closePath();
+  ctx.closePath();
   ctx.stroke(); // draw it!
 }
 
